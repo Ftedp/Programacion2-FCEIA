@@ -56,7 +56,7 @@ class ListaEnlazada:
             n_ant.prox = nuevo          # nodo actual apunta a el nuevo nodo
         self.len += 1
 
-    #Ejercicio 2 Agregue a ListaEnlazada un método extend que reciba una ListaEnlazada y
+    #Ejercicio 2:  Agregue a ListaEnlazada un método extend que reciba una ListaEnlazada y
     #agregue a la lista actual los elementos que se encuentran en la lista recibida.
     #¿Puede estimar la complejidad de este método?
      
