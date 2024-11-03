@@ -56,6 +56,25 @@ class ListaEnlazada:
             n_ant.prox = nuevo          # nodo actual apunta a el nuevo nodo
         self.len += 1
 
+    #Ejercicio 2 Agregue a ListaEnlazada un método extend que reciba una ListaEnlazada y
+    #agregue a la lista actual los elementos que se encuentran en la lista recibida.
+    #¿Puede estimar la complejidad de este método?
+     
+    def extend(self, other: 'ListaEnlazada') -> None:
+        """Agrega los elementos de la lista other a la lista actual."""
+        if other.prim is None:
+            return
+        if self.prim is None:
+            self.prim = other.prim
+            self.len = other.len
+        else:
+            n_act = self.prim
+            while n_act.prom is not None:
+                n_act = n_act.prox
+            n_act.prox = other.prim
+            self.len += other.len
+        return None
+
     def pop(self, i: int | None = None) -> Any:
         """Elimina el nodo de la posición i, y devuelve el dato contenido.
         Si i está fuera de rango, se muestra un mensaje de error y se
@@ -163,5 +182,6 @@ nodo6.prox = nodo7
 nodo7.prox = nodo8
 nodo8.prox = nodo9
 nodo9.prox = nodo10
+
 
 ver_lista(nodo1)
