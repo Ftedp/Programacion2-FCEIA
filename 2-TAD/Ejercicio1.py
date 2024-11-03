@@ -128,6 +128,34 @@ class ListaEnlazada:
             n_ant.prox = n_act.prox
         self.len -= 1
 
+    #Ejercicio 3
+    #Implemente el método remover_todos(elemento) de ListaEnlazada, que recibe
+    #un elemento y remueve de la lista todas las apariciones del mismo, devolviendo
+    #la cantidad de elementos removidos. La lista debe ser recorrida una sola vez.
+    def remover_todos(self, elemento: Any) -> Any:
+        """Remueve todas las apariciones del valor elemento en la lista."""
+        if self.len == 0:
+            print("La lista esta vacía")
+            return 
+        if self.prim.dato == elemento:
+            # Caso particular: saltear la cabecera de la lista
+            self.prim = self.prim.prox
+            self.len -= 1
+            return self.remover_todos(elemento)
+            # Buscar el nodo anterior al que contiene a x (n_ant)
+        n_ant = self.prim
+        n_act = n_ant.prox
+        while n_act is not None:
+            if n_act.dato == elemento:
+                # Descartar el nodo
+                n_ant.prox = n_act.prox #salteo nodo que contiene el elemento buscado.
+                self.len -= 1
+                n_act = n_ant.prox #actualizamos nodo actual
+            else:
+                n_ant = n_act
+                n_act = n_ant.prox
+        return self.len
+
     def __len__(self):
         return self.len
       
@@ -185,3 +213,18 @@ nodo9.prox = nodo10
 
 
 ver_lista(nodo1)
+lista_enlazada = ListaEnlazada()
+lista_enlazada.insert(0,nodo1)
+lista_enlazada.insert(0,nodo2)
+lista_enlazada.insert(0,nodo3)
+lista_enlazada.insert(0,nodo4)
+lista_enlazada.insert(0,nodo5)
+lista_enlazada.insert(0,nodo6)
+lista_enlazada.insert(0,nodo7)
+lista_enlazada.insert(0,nodo8)
+lista_enlazada.insert(0,nodo9)
+lista_enlazada.insert(0,nodo10)
+print(lista_enlazada)
+lista_enlazada.remover_todos(nodo4)
+print(lista_enlazada)
+#ver__lista(nodo1)
