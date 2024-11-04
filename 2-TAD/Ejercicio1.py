@@ -103,6 +103,28 @@ class ListaEnlazada:
           else:
               n_act = n_act.prox
 
+    #   Ejercicio 5
+    #Escriba un método de la clase ListaEnlazada que invierta el orden de la lista
+    #(es decir, el primer elemento queda como último y viceversa).
+    def invertir(self) -> None:
+      """Invierte el orden de los elementos en la lista enlazada."""
+      if self.len == 0:
+          print("La lista está vacía")
+          return
+      if self.len == 1:
+          return  # No es necesario hacer nada si solo hay un elemento
+
+      anterior = None
+      actual = self.prim
+
+      while actual is not None:
+          siguiente = actual.prox  # Guardar el siguiente nodo
+          actual.prox = anterior   # Invertir el enlace
+          anterior = actual        # Mover 'anterior' al nodo actual
+          actual = siguiente       # Mover 'actual' al siguiente nodo
+
+      self.prim = anterior  # Actualizar el primer nodo de la lista
+
 
     def pop(self, i: int | None = None) -> Any:
         """Elimina el nodo de la posición i, y devuelve el dato contenido.
@@ -222,17 +244,9 @@ class ListaEnlazada:
 
 
 lista = ListaEnlazada()
-lista.append(1)
+lista.append(3)
+lista.append(4)
 lista.append(5)
-lista.append(8)
-lista.append(8)
-lista.append(2)
-lista.append(8)
-
-print("Antes de duplicar:")
-print(lista)  # [1, 5, 8, 8, 2, 8]
-
-lista.duplicar(8)
-
-print("Después de duplicar:")
-print(lista)  # [1, 5, 8, 8, 8, 8, 2, 8, 8]
+print("Antes de invertir:", lista)  # Esperado: [2, 1, 3, 4, 5]
+lista.invertir()
+print("Después de invertir:", lista)
