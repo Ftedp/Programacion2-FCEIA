@@ -75,6 +75,35 @@ class ListaEnlazada:
             self.len += other.len
         return None
 
+        #Ejercicio 4
+    #Implemente el método duplicar(elemento) de ListaEnlazada, que recibe un
+    #elemento y duplica todas las apariciones del mismo. Ejemplo:
+
+    #L = 1 -> 5 -> 8 -> 8 -> 2 -> 8
+    #L.duplicar(8) = L = 1 -> 5 -> 8 -> 8 -> 8 -> 8 -> 2 -> 8 -> 8
+
+    def duplicar(self, elemento: Any) -> None:
+      """Duplica todas las apariciones del valor elemento en la lista."""
+      
+      if self.len == 0:
+          print("La lista está vacía")
+          return
+
+      n_act = self.prim
+
+      while n_act is not None:
+          if n_act.dato == elemento:
+              # Crear un nuevo nodo con el mismo dato
+              nuevo = Nodo(elemento)
+              nuevo.prox = n_act.prox
+              n_act.prox = nuevo
+              self.len += 1
+              # Avanzar dos nodos: al nodo duplicado y al siguiente
+              n_act = nuevo.prox
+          else:
+              n_act = n_act.prox
+
+
     def pop(self, i: int | None = None) -> Any:
         """Elimina el nodo de la posición i, y devuelve el dato contenido.
         Si i está fuera de rango, se muestra un mensaje de error y se
@@ -190,41 +219,20 @@ class ListaEnlazada:
             idx += 1
         raise ValueError(f"{x} no está en la lista.")
 
-nodo1 = Nodo(1)
-nodo2 = Nodo(2)
-nodo3 = Nodo(3)
-nodo4 = Nodo(4)
-nodo5 = Nodo(5)
-nodo6 = Nodo(6)
-nodo7 = Nodo(7)
-nodo8 = Nodo(8)
-nodo9 = Nodo(9)
-nodo10 = Nodo(10)
-
-nodo1.prox = nodo2
-nodo2.prox = nodo3
-nodo3.prox = nodo4
-nodo4.prox = nodo5
-nodo5.prox = nodo6
-nodo6.prox = nodo7
-nodo7.prox = nodo8
-nodo8.prox = nodo9
-nodo9.prox = nodo10
 
 
-ver_lista(nodo1)
-lista_enlazada = ListaEnlazada()
-lista_enlazada.insert(0,nodo1)
-lista_enlazada.insert(0,nodo2)
-lista_enlazada.insert(0,nodo3)
-lista_enlazada.insert(0,nodo4)
-lista_enlazada.insert(0,nodo5)
-lista_enlazada.insert(0,nodo6)
-lista_enlazada.insert(0,nodo7)
-lista_enlazada.insert(0,nodo8)
-lista_enlazada.insert(0,nodo9)
-lista_enlazada.insert(0,nodo10)
-print(lista_enlazada)
-lista_enlazada.remover_todos(nodo4)
-print(lista_enlazada)
-#ver__lista(nodo1)
+lista = ListaEnlazada()
+lista.append(1)
+lista.append(5)
+lista.append(8)
+lista.append(8)
+lista.append(2)
+lista.append(8)
+
+print("Antes de duplicar:")
+print(lista)  # [1, 5, 8, 8, 2, 8]
+
+lista.duplicar(8)
+
+print("Después de duplicar:")
+print(lista)  # [1, 5, 8, 8, 8, 8, 2, 8, 8]
