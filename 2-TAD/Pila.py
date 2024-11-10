@@ -33,6 +33,12 @@ class Pila:
         self.len -= 1
         return dato
 
+    def ver(self) -> Any:
+      if self.isEmpty():
+        print("La pila esta vacia")
+        return None
+      return self.prim.dato 
+
     def isEmpty(self) -> bool:
         #devuelve true si la pila está vacia, caso contrario false.
         return self.prim is None
@@ -49,25 +55,82 @@ class Pila:
       return "->".join(elementos)
 
 
+#Ejercicio 3
+#Crear una clase PilaConMaximo que soporte las operaciones de Pila
+#(push(item) y pop()), y además incluya el método obtener_maximo() que
+#devuelva el elemento máximo de la pila sin sacarlo de la misma y que funcione en
+#tiempo constante.
+#Ayuda: usar dos pilas, una para guardar los elementos y otra para guardar
+#los máximos.
+class PilaConMaximo:
+  def __init__(self):
+        self.pila = Pila()          # Pila principal para los elementos.
+        self.pila_maximos = Pila()   # Pila para almacenar los máximos.
 
-pila = Pila()
+  def push(self, item: Any) -> None:
+    #agrega un elemento al tope de la pila
 
-print("¿La pila está vacía?")  
-print(pila.isEmpty())
+    self.pila.push(item)
+    if self.pila_maximos.isEmpty() or item >= self.pila_maximos.prim.dato:
+      self.pila_maximos.push(item)
 
-pila.push(10)
-pila.push(20)
-pila.push(30)
+  def pop(self) -> Any:
+    #Desapila el nodo superior(tope) de la pila y lo devuelve.
+    #si esta vacia, devuelve mensaje de error
 
-print("Pila después de apilar 10, 20, 30:")
-print(pila)  # 30 -> 20 -> 10
+    if self.pila.isEmpty():
+      print("La pila esta vacia")
+      return None
 
-print("Elemento desapilado:", pila.pop())  # 30
+    dato = self.pila.pop()
+    
+    if dato == self.pila_maximos.ver(): 
+      self.pila_maximos.pop()
 
-print("Pila después de desapilar:")
-print(pila)  # 20 -> 10
+    return dato
+    
+  def obtener_maximo(self) -> Any:
+    if self.pila_maximos.isEmpty():
+      print("La pila esta vacia")
+      return None
+    return self.pila_maximos.ver()
+      
 
-print("¿La pila está vacía?", pila.isEmpty())  # False
+# Crear una instancia de la PilaConMaximo
+pila = PilaConMaximo()
 
-print("Número de elementos en la pila:", len(pila))  # 2
+# Agregar algunos elementos y verificar el máximo
+pila.push(3)
+print("Máximo actual:", pila.obtener_maximo())  # Máximo debería ser 3
+
+pila.push(5)
+print("Máximo actual:", pila.obtener_maximo())  # Máximo debería ser 5
+
+pila.push(2)
+print("Máximo actual:", pila.obtener_maximo())  # Máximo debería seguir siendo 5
+
+pila.push(7)
+print("Máximo actual:", pila.obtener_maximo())  # Máximo debería ser 7
+
+pila.push(1)
+print("Máximo actual:", pila.obtener_maximo())  # Máximo debería seguir siendo 7
+
+# Eliminar elementos y verificar el máximo en cada paso
+pila.pop()
+print("Máximo actual después de pop:", pila.obtener_maximo())  # Máximo debería seguir siendo 7
+
+pila.pop()
+print("Máximo actual después de pop:", pila.obtener_maximo())  # Máximo debería ser 5
+
+pila.pop()
+print("Máximo actual después de pop:", pila.obtener_maximo())  # Máximo debería seguir siendo 5
+
+pila.pop()
+print("Máximo actual después de pop:", pila.obtener_maximo())  # Máximo debería ser 3
+
+pila.pop()
+print("Máximo actual después de pop:", pila.obtener_maximo())  # La pila está vacía, debería mostrar un mensaje de vacío
+
+
+
 
